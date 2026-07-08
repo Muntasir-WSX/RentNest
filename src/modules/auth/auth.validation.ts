@@ -8,6 +8,11 @@ export type RegisterInput = {
   role: Role;
 };
 
+export type LoginInput = {
+  email: string;
+  password: string;
+};
+
 export function validateRegisterInput(body: Record<string, unknown>) {
   const errors: Record<string, string> = {};
 
@@ -29,6 +34,23 @@ export function validateRegisterInput(body: Record<string, unknown>) {
 
   if (body.role !== Role.TENANT && body.role !== Role.LANDLORD) {
     errors.role = "Role must be TENANT or LANDLORD.";
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors,
+  };
+}
+
+export function validateLoginInput(body: Record<string, unknown>) {
+  const errors: Record<string, string> = {};
+
+  if (typeof body.email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email)) {
+    errors.email = "A valid email is required.";
+  }
+
+  if (typeof body.password !== "string" || body.password.length < 6) {
+    errors.password = "Password must be at least 6 characters long.";
   }
 
   return {
