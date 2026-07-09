@@ -5,7 +5,7 @@ import {
   RequestStatus,
   Role,
 } from "@prisma/client";
-import config from '../../config.js';
+import config from '../../config';
 import { prisma } from '../../lib/prisma.js';
 import type {
   ConfirmPaymentInput,

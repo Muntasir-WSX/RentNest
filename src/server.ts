@@ -1,5 +1,5 @@
 import app from './app.js';
-import config from './config.js';
+import config from './config';
 import { prisma } from './lib/prisma.js';
 import "dotenv/config";
 
@@ -24,3 +24,6 @@ async function main () {
 }
 
 main()
+
+
+
