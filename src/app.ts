@@ -1,16 +1,16 @@
 import cookieParser from "cookie-parser";
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
-import config from "./config";
-import adminRoutes from "./routes/admin.routes";
-import authRoutes from "./routes/auth.routes";
-import categoryRoutes from "./routes/category.routes";
-import landlordRoutes from "./routes/landlord.routes";
-import paymentRoutes from "./routes/payment.routes";
-import propertyRoutes from "./routes/property.routes";
-import rentalRoutes from "./routes/rental.routes";
-import reviewRoutes from "./routes/review.routes";
-import { sendError } from "./utils/apiResponse";
+import config from './config.js';
+import adminRoutes from './routes/admin.routes.js';
+import authRoutes from './routes/auth.routes.js';
+import categoryRoutes from './routes/category.routes.js';
+import landlordRoutes from './routes/landlord.routes.js';
+import paymentRoutes from './routes/payment.routes.js';
+import propertyRoutes from './routes/property.routes.js';
+import rentalRoutes from './routes/rental.routes.js';
+import reviewRoutes from './routes/review.routes.js';
+import { sendError } from './utils/apiResponse.js';
 
 
 const app : Application = express();

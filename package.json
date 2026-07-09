@@ -1,31 +1,13 @@
 {
   "name": "rentnest",
   "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
-  "type": "module",
   "main": "dist/server.js",
+  "type": "module",
   "scripts": {
-  "build": "tsc",
-  "vercel-build": "prisma generate && tsc",
-  "start": "node dist/src/server.js",
-  "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
-},
-  "prisma": {
-    "seed": "npm run seed"
-  },
-  "devDependencies": {
-    "@types/bcryptjs": "^2.4.6",
-    "@types/cookie-parser": "^1.4.10",
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^26.1.0",
-    "@types/pg": "^8.20.0",
-    "prisma": "^7.8.0",
-    "tsx": "^4.23.0",
-    "typescript": "^6.0.3"
+    "build": "tsc",
+    "vercel-build": "prisma generate && tsc",
+    "start": "node --experimental-specifier-resolution=node dist/server.js",
+    "dev": "tsx watch src/server.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
@@ -39,5 +21,17 @@
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.22.0",
     "stripe": "^22.3.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^26.1.0",
+    "@types/pg": "^8.20.0",
+    "prisma": "^7.8.0",
+    "tsx": "^4.23.0",
+    "typescript": "^6.0.3"
   }
 }

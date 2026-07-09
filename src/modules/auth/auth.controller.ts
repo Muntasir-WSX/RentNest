@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
 import httpStatus from "http-status";
-import { sendError, sendSuccess } from "../../utils/apiResponse";
-import { getCurrentUser, loginUser, registerUser } from "./auth.service";
-import { validateLoginInput, validateRegisterInput } from "./auth.validation";
-import { createAuthTokens, verifyRefreshToken } from "./auth.tokens";
+import { sendError, sendSuccess } from '../../utils/apiResponse.js';
+import { getCurrentUser, loginUser, registerUser } from './auth.service.js';
+import { validateLoginInput, validateRegisterInput } from './auth.validation.js';
+import { createAuthTokens, verifyRefreshToken } from './auth.tokens.js';
 
 function setRefreshTokenCookie(res: Response, refreshToken: string) {
   res.cookie("refreshToken", refreshToken, {

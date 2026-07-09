@@ -1,16 +1,16 @@
 import type { Request, Response } from "express";
 import httpStatus from "http-status";
-import { sendError, sendSuccess } from "../../utils/apiResponse";
+import { sendError, sendSuccess } from '../../utils/apiResponse.js';
 import {
   confirmPayment,
   createPaymentSession,
   getPaymentById,
   getUserPayments,
-} from "./payment.service";
+} from './payment.service.js';
 import {
   validateConfirmPaymentInput,
   validateCreatePaymentInput,
-} from "./payment.validation";
+} from './payment.validation.js';
 
 export async function createPayment(req: Request, res: Response) {
   if (!req.user) {

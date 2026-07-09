@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import httpStatus from "http-status";
-import { prisma } from "../../lib/prisma";
-import { sendError, sendSuccess } from "../../utils/apiResponse";
+import { prisma } from '../../lib/prisma.js';
+import { sendError, sendSuccess } from '../../utils/apiResponse.js';
 
 function toNumber(value: unknown) {
   const num = Number(value);

@@ -1,4 +1,4 @@
-import { Role } from "../../../prisma/generated/prisma/client";
+import { Role } from "@prisma/client";
 
 export type RegisterInput = {
   name: string;

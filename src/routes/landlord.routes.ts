@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { Role } from "../../prisma/generated/prisma/client";
-import { requireAuth, requireRole } from "../middlewares/auth.middleware";
+import { Role } from "@prisma/client";
+import { requireAuth, requireRole } from '../middlewares/auth.middleware.js';
 import {
   createLandlordProperty,
   deleteLandlordProperty,
   getLandlordRequests,
   updateLandlordProperty,
   updateLandlordRequestStatus,
-} from "../modules/landlord/landlord.controller";
+} from '../modules/landlord/landlord.controller.js';
 
 const router = Router();
 

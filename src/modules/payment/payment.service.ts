@@ -4,13 +4,13 @@ import {
   PaymentStatus,
   RequestStatus,
   Role,
-} from "../../../prisma/generated/prisma/client";
-import config from "../../config";
-import { prisma } from "../../lib/prisma";
+} from "@prisma/client";
+import config from '../../config.js';
+import { prisma } from '../../lib/prisma.js';
 import type {
   ConfirmPaymentInput,
   CreatePaymentInput,
-} from "./payment.validation";
+} from './payment.validation.js';
 
 function getStripeClient() {
   if (!config.stripe_secret_key) {
@@ -142,7 +142,7 @@ export async function confirmPayment(userId: string, userRole: Role, input: Conf
     };
   }
 
-  const updatedPayment = await prisma.$transaction(async (tx) => {
+  const updatedPayment = await prisma.$transaction(async (tx:any) => {
     const savedPayment = await tx.payment.update({
       where: { id: payment.id },
       data: {

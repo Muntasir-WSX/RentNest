@@ -1,8 +1,8 @@
 import type { Request, Response } from "express";
 import httpStatus from "http-status";
-import { RequestStatus } from "../../../prisma/generated/prisma/client";
-import { prisma } from "../../lib/prisma";
-import { sendError, sendSuccess } from "../../utils/apiResponse";
+import { RequestStatus } from "@prisma/client";
+import { prisma } from '../../lib/prisma.js';
+import { sendError, sendSuccess } from '../../utils/apiResponse.js';
 
 function parseDate(value: unknown) {
   if (typeof value !== "string") {

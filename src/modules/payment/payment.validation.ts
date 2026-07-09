@@ -1,4 +1,4 @@
-import { PaymentProvider } from "../../../prisma/generated/prisma/client";
+import { PaymentProvider } from "@prisma/client";
 
 export type CreatePaymentInput = {
   rentalRequestId: string;

@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
-import { sendError } from "../utils/apiResponse";
-import { verifyAccessToken } from "../modules/auth/auth.tokens";
-import { Role } from "../../prisma/generated/prisma/client";
+import { sendError } from '../utils/apiResponse.js';
+import { verifyAccessToken } from '../modules/auth/auth.tokens.js';
+import { Role } from "@prisma/client";
 
 function getBearerToken(req: Request) {
   const header = req.headers.authorization;

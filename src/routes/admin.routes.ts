@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { Role } from "../../prisma/generated/prisma/client";
-import { requireAuth, requireRole } from "../middlewares/auth.middleware";
+import { Role } from "@prisma/client";
+import { requireAuth, requireRole } from '../middlewares/auth.middleware.js';
 import {
   getAllPropertiesForAdmin,
   getAllRentalsForAdmin,
   getAllUsers,
   updateUserStatus,
-} from "../modules/admin/admin.controller";
+} from '../modules/admin/admin.controller.js';
 
 const router = Router();
 

@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import httpStatus from "http-status";
-import { prisma } from "../../lib/prisma";
-import { sendSuccess } from "../../utils/apiResponse";
+import { prisma } from '../../lib/prisma.js';
+import { sendSuccess } from '../../utils/apiResponse.js';
 
 export async function getCategories(req: Request, res: Response) {
   const categories = await prisma.category.findMany({

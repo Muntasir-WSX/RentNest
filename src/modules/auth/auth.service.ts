@@ -1,9 +1,9 @@
 import bcrypt from "bcryptjs";
-import { prisma } from "../../lib/prisma";
-import { Role } from "../../../prisma/generated/prisma/client";
-import type { AuthTokenPayload } from "./auth.tokens";
-import { createAuthTokens } from "./auth.tokens";
-import type { LoginInput, RegisterInput } from "./auth.validation";
+import { prisma } from '../../lib/prisma.js';
+import { Role } from "@prisma/client";
+import type { AuthTokenPayload } from './auth.tokens.js';
+import { createAuthTokens } from './auth.tokens.js';
+import type { LoginInput, RegisterInput } from './auth.validation.js';
 
 const userSelect = {
   id: true,
