@@ -6,6 +6,7 @@ import {
   getAllRentalsForAdmin,
   getAllUsers,
   updateUserStatus,
+
 } from '../modules/admin/admin.controller.js';
 
 const router = Router();
