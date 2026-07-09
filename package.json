@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsup",
-    "vercel-build": "prisma generate && tsc",
+    "vercel-build": "prisma generate",
     "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
     "seed": "tsx prisma/seed.ts"
