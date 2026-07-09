@@ -150,7 +150,7 @@ export async function refresh(req: Request, res: Response) {
       sendSuccess(
         {
           user,
-            accessToken: tokens.accessToken,
+          accessToken: tokens.accessToken,
         },
         "Token refreshed successfully",
       ),
@@ -197,6 +197,8 @@ export async function me(req: Request, res: Response) {
     sendSuccess(user, "Current user fetched successfully"),
   );
 }
+
+
 
 
 

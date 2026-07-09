@@ -2,7 +2,14 @@ import cookieParser from "cookie-parser";
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import config from "./config";
+import adminRoutes from "./routes/admin.routes";
 import authRoutes from "./routes/auth.routes";
+import categoryRoutes from "./routes/category.routes";
+import landlordRoutes from "./routes/landlord.routes";
+import paymentRoutes from "./routes/payment.routes";
+import propertyRoutes from "./routes/property.routes";
+import rentalRoutes from "./routes/rental.routes";
+import reviewRoutes from "./routes/review.routes";
 import { sendError } from "./utils/apiResponse";
 
 
@@ -19,6 +26,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/properties", propertyRoutes);
+app.use("/api/landlord", landlordRoutes);
+app.use("/api/rentals", rentalRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.get("/", (req: Request, res: Response) => {
     res.json({
