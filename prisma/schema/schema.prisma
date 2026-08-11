@@ -77,7 +77,7 @@ model Property {
   title       String
   description String
   location    String
-  price       Decimal  @db.Decimal(12, 2)
+  price       Int  
   images      String[] 
   amenities   String[] 
   isAvailable Boolean  @default(true)

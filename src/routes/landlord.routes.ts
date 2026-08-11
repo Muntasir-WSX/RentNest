@@ -4,6 +4,7 @@ import { requireAuth, requireRole } from '../middlewares/auth.middleware.js';
 import {
   createLandlordProperty,
   deleteLandlordProperty,
+  getLandlordProperties,
   getLandlordRequests,
   updateLandlordProperty,
   updateLandlordRequestStatus,
@@ -16,5 +17,5 @@ router.put("/properties/:id", requireAuth, requireRole(Role.LANDLORD, Role.ADMIN
 router.delete("/properties/:id", requireAuth, requireRole(Role.LANDLORD, Role.ADMIN), deleteLandlordProperty);
 router.get("/requests", requireAuth, requireRole(Role.LANDLORD, Role.ADMIN), getLandlordRequests);
 router.patch("/requests/:id", requireAuth, requireRole(Role.LANDLORD, Role.ADMIN), updateLandlordRequestStatus);
-
+router.get("/properties", requireAuth, requireRole(Role.LANDLORD, Role.ADMIN), getLandlordProperties);
 export default router;

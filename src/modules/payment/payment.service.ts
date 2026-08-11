@@ -69,20 +69,39 @@ export async function createPaymentSession(userId: string, input: CreatePaymentI
   const stripe = getStripeClient();
   const amountInCents = toStripeAmount(rentalRequest.property.price);
 
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: amountInCents,
-    currency: "bdt",
+  
+  const appUrl = config.app_url || "http://localhost:3000";
+
+  
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: [
+      {
+        price_data: {
+          currency: "bdt",
+          product_data: {
+            name: `Rental Payment for Request: ${rentalRequest.id}`,
+          },
+          unit_amount: amountInCents,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: "payment",
+    success_url: `${appUrl}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${appUrl}/payment/cancel`,
     metadata: {
       rentalRequestId: rentalRequest.id,
       tenantId: userId,
     },
-    payment_method_types: ["card"],
   });
 
   const payment = await prisma.payment.create({
     data: {
       amount: rentalRequest.property.price,
-      transactionId: paymentIntent.id,
+      createdAt: new Date(),
+      paidAt: null,
+      transactionId: session.id, 
       method: "card",
       provider: PaymentProvider.STRIPE,
       status: PaymentStatus.PENDING,
@@ -103,7 +122,7 @@ export async function createPaymentSession(userId: string, input: CreatePaymentI
   return {
     status: "ok" as const,
     payment,
-    clientSecret: paymentIntent.client_secret,
+    url: session.url, 
   };
 }
 
@@ -133,16 +152,16 @@ export async function confirmPayment(userId: string, userRole: Role, input: Conf
   }
 
   const stripe = getStripeClient();
-  const paymentIntent = await stripe.paymentIntents.retrieve(payment.transactionId);
+  const session = await stripe.checkout.sessions.retrieve(payment.transactionId);
 
-  if (paymentIntent.status !== "succeeded") {
+  if (session.payment_status !== "paid") {
     return {
       status: "not_completed" as const,
-      stripeStatus: paymentIntent.status,
+      stripeStatus: session.payment_status,
     };
   }
 
-  const updatedPayment = await prisma.$transaction(async (tx:any) => {
+  const updatedPayment = await prisma.$transaction(async (tx: any) => {
     const savedPayment = await tx.payment.update({
       where: { id: payment.id },
       data: {

@@ -67,9 +67,9 @@ export async function createPayment(req: Request, res: Response) {
     sendSuccess(
       {
         payment: result.payment,
-        clientSecret: result.clientSecret,
+        url: result.url, 
       },
-      "Payment intent created successfully",
+      "Payment session created successfully",
     ),
   );
 }
@@ -83,7 +83,11 @@ export async function confirmPaymentStatus(req: Request, res: Response) {
     );
   }
 
-  const validation = validateConfirmPaymentInput(req.body as Record<string, unknown>);
+  const bodyData = {
+    transactionId: req.body.transactionId || req.body.session_id,
+  };
+
+  const validation = validateConfirmPaymentInput(bodyData as Record<string, unknown>);
 
   if (!validation.isValid) {
     return res.status(httpStatus.BAD_REQUEST).json(
@@ -182,6 +186,12 @@ export async function paymentDetails(req: Request, res: Response) {
       }),
     );
   }
+
+  console.log("========================================");
+  console.log("✅ PAYMENT SUCCESSFULLY COMPLETED & CONFIRMED");
+  console.log("Transaction ID / Session ID:", validation.value.transactionId);
+  console.log("Payment Details:", result.payment);
+  console.log("========================================");
 
   return res.status(httpStatus.OK).json(
     sendSuccess(result.payment, "Payment fetched successfully"),

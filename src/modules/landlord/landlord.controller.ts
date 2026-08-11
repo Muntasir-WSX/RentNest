@@ -280,3 +280,23 @@ export async function updateLandlordRequestStatus(req: Request, res: Response) {
     sendSuccess(updated, "Rental request status updated successfully"),
   );
 }
+
+export async function getLandlordProperties(req: Request, res: Response) {
+  if (!req.user) {
+    return res.status(httpStatus.UNAUTHORIZED).json(
+      sendError("Authentication required", { authorization: "Missing access token." }),
+    );
+  }
+
+  const properties = await prisma.property.findMany({
+    where: { landlordId: req.user.userId },
+    orderBy: { createdAt: "desc" },
+    include: {
+      category: { select: { id: true, name: true } },
+    },
+  });
+
+  return res.status(httpStatus.OK).json(
+    sendSuccess(properties, "Landlord properties fetched successfully"),
+  );
+}

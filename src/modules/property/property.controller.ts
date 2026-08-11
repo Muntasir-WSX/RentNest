@@ -3,6 +3,7 @@ import httpStatus from "http-status";
 import { prisma } from '../../lib/prisma.js';
 import { sendError, sendSuccess } from '../../utils/apiResponse.js';
 
+
 function toNumber(value: unknown) {
   const num = Number(value);
   return Number.isFinite(num) ? num : null;
@@ -11,19 +12,36 @@ function toNumber(value: unknown) {
 export async function getProperties(req: Request, res: Response) {
   const minPrice = toNumber(req.query.minPrice);
   const maxPrice = toNumber(req.query.maxPrice);
-  const location = typeof req.query.location === "string" ? req.query.location.trim() : undefined;
+ 
+  const locationQuery = typeof req.query.city === "string" ? req.query.city.trim() : 
+                        (typeof req.query.location === "string" ? req.query.location.trim() : undefined);
+
+  const searchQuery = typeof req.query.search === "string" ? req.query.search.trim() : undefined;
+  
   const categoryId = typeof req.query.categoryId === "string" ? req.query.categoryId.trim() : undefined;
 
   const properties = await prisma.property.findMany({
     where: {
       isAvailable: true,
-      ...(location ? { location: { contains: location, mode: "insensitive" } } : {}),
+      ...(locationQuery ? { location: { contains: locationQuery, mode: "insensitive" } } : {}),
+      
+      
+      ...(searchQuery ? {
+        OR: [
+          { title: { contains: searchQuery, mode: "insensitive" } },
+          { location: { contains: searchQuery, mode: "insensitive" } },
+          { description: { contains: searchQuery, mode: "insensitive" } }
+        ]
+      } : {}),
+
       ...(categoryId ? { categoryId } : {}),
+      
+   
       ...(minPrice !== null || maxPrice !== null
         ? {
             price: {
-              ...(minPrice !== null ? { gte: minPrice } : {}),
-              ...(maxPrice !== null ? { lte: maxPrice } : {}),
+              ...(minPrice !== null ? { gte: String(minPrice) } : {}),
+              ...(maxPrice !== null ? { lte: String(maxPrice) } : {}),
             },
           }
         : {}),
