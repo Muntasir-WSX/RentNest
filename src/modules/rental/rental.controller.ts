@@ -105,6 +105,7 @@ export async function getMyRentalRequests(req: Request, res: Response) {
           paidAt: true,
         },
       },
+      review: true,
     },
   });
 
@@ -143,6 +144,7 @@ export async function getRentalRequestById(req: Request, res: Response) {
         },
       },
       payments: true,
+      review: true,
     },
   });
 

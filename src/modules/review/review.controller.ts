@@ -56,9 +56,15 @@ export async function createReview(req: Request, res: Response) {
     );
   }
 
-  if (rentalRequest.status !== RequestStatus.COMPLETED) {
+ 
+  if (
+    rentalRequest.status !== RequestStatus.APPROVED &&
+    rentalRequest.status !== RequestStatus.COMPLETED
+  ) {
     return res.status(httpStatus.BAD_REQUEST).json(
-      sendError("Rental is not completed", { status: "Review is allowed only after COMPLETED status." }),
+      sendError("Rental is not approved or completed", { 
+        status: "Review is allowed only after approval or completion status." 
+      }),
     );
   }
 
