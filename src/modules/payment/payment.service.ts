@@ -69,10 +69,8 @@ export async function createPaymentSession(userId: string, input: CreatePaymentI
   const stripe = getStripeClient();
   const amountInCents = toStripeAmount(rentalRequest.property.price);
 
-  
   const appUrl = config.app_url || "http://localhost:3000";
 
-  
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: [
